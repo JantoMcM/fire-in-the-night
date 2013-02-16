@@ -1,0 +1,47 @@
+## This code was originally developed to put voices with menu choices, but it should be possible to hack it to insert images instead.
+
+###########################################
+
+## Define the images to be used
+$ menuImageList = ["OptionA.png", "OptionB.png"]  
+
+## Normal menu statement
+menu:
+    "OptionA":
+        #Do something
+    "OptionB":
+        #Do something
+
+##########################################
+		
+## Regular choice menu
+screen choice:
+
+	## Used to control file called by counting up, so an alternative will be needed.
+    $ count = 0  
+   
+    window:
+        style "menu_window"       
+        xalign 0.5
+        yalign 0.5
+       
+        vbox:
+            style "menu"
+            spacing 2
+           
+            for caption, action, chosen in items:
+               
+                if action: 
+                   
+                    imagebutton:
+                        action action
+                        style "menu_choice_button"
+
+                        text caption style "menu_choice"
+                        hovered Play("voice", menuImageList[count])
+                        $ count += 1
+
+                else:
+                    text caption style "menu_caption"
+                    hovered Play("voice", menuImageList[count])
+                    $ count += 1
